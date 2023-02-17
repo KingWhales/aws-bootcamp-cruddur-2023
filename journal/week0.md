@@ -18,3 +18,7 @@ Then I logged into my email to confirm the subscription, then I clicked next to 
 ![name annd description](https://user-images.githubusercontent.com/111932225/219655891-1f5b7951-c598-4356-b1cc-0c4d4729eb69.png)
 I clicked next to see "Preview and create" page before I clicked on "create alarm"
 ![alarm created](https://user-images.githubusercontent.com/111932225/219656532-3a3fe95e-13b3-427a-b3d2-0c86c0f83eca.png) deb81bace18
+
+# USING LUCID CHART ARCHITECTURE DIAGRAM
+
+![Lucidchart](https://user-images.githubusercontent.com/111932225/219817872-f9382241-1fe6-4480-9d66-80d6f58fbfbf.png)
