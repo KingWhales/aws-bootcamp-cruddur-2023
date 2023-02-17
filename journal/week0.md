@@ -1,8 +1,9 @@
 # Week 0 — Billing and Architecture
-Discussion in our week 0 class
+# Discussion in our week 0 class
 Tutor talked about monolithic and microservice architecture, she went further to explain benefit of microservice application to us, by making us understand it has agility, flexible scaling, easy deployment benefit and technical freedom benefits. She sketched us a triangle diagram which shows the SCOPE, COST and TIME that will affect the project stakeholders and the members.
 She explained what Good Architecture is and listed the attributes that make up a good architecture, she listed how to meet the project requirements,  addressed the Risk, Assumption and Constraints, info gathered from RACs to create your designs (conceptual, logical and physical design), to develop a common dictionary(asking dumb questions, play be-the-packet, documentation) and use of AWS Well-Architected Framework  to review your workloads against current AWS best practice (Operational excellence, Performance efficiency, Reliability,  Cost Optimization, Security and Sustainability).
-Setting up Billing alarm
+
+# Setting up Billing alarm
 I had to login into my root account to grant my User account access to the  billing console
 ![user permission](https://user-images.githubusercontent.com/111932225/219644113-a1edccb2-a005-455f-b182-45d392db7241.png)
 I logged in from another browser which is Firefox to save  me the stress of logging out of my User account, then  I granted my user account permission to access billing console
