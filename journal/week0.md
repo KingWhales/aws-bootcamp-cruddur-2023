@@ -44,3 +44,11 @@ Then I selected SNS to invoke when there's an event match, skipped tag page and 
 # Conceptual Architecture Diagram (Napkins)
 
 ![IMG_3178](https://user-images.githubusercontent.com/111932225/219863669-da0bddda-7811-4214-87c4-6b6a5b1585bb.jpg)
+
+
+# Reviewing all the questions of each pillars in the Well-Architected Tool
+
+I navigated to Well Architecture Framework tools and defined a workload and name it cruddur and I put Andrew Bayco as Review ower and I chose N. Virgina where I want my workload to run. I input my account ID, chose other as my industry type then I typed "Social media" to be in the industry section. I clicked next then selected AWS Well-Architected framework as my Lens, then I clicked on "Define workload" and the clicked "Start reviewing"
+
+![Define Well Architected Framework](https://user-images.githubusercontent.com/111932225/219873342-dda7db55-c6d8-4819-bab5-4eb08e06ece2.png)
+![AWS Well-Architecture Frameworl](https://user-images.githubusercontent.com/111932225/219873362-1b14be1d-38aa-440f-970d-8e76f0147e8e.png)
