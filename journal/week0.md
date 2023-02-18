@@ -39,3 +39,8 @@ Then I selected SNS to invoke when there's an event match, skipped tag page and 
 
 ![SNS as event source](https://user-images.githubusercontent.com/111932225/219858051-a2a4daec-dbf4-4991-8cc5-899d50f8b109.png)
 ![SNS to invoke](https://user-images.githubusercontent.com/111932225/219858069-0f5e5ef8-7095-4bf3-87d3-6865a4f29ace.png)
+
+
+# Conceptual Architecture Diagram (Napkins)
+
+![IMG_3178](https://user-images.githubusercontent.com/111932225/219863669-da0bddda-7811-4214-87c4-6b6a5b1585bb.jpg)
