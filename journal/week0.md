@@ -22,3 +22,20 @@ I clicked next to see "Preview and create" page before I clicked on "create alar
 # USING LUCID CHART ARCHITECTURE DIAGRAM
 
 ![Lucidchart](https://user-images.githubusercontent.com/111932225/219817872-f9382241-1fe6-4480-9d66-80d6f58fbfbf.png)
+
+
+# USE EVENTBRIDGE TO HOOKUP HEALTH DASHBOARD TO SNS AND SEND NOTIFICATION WHEN THERE'S A SERVICE HEALTH ISSUE
+
+I searched for Health Dashboard and click on configure Eventbridge from Health Dashboard
+
+![health dashboard](https://user-images.githubusercontent.com/111932225/219857804-94ce2b61-5eed-438a-b4ec-607100ff1d69.png)
+
+Chose Health as event source 
+
+![health as event source](https://user-images.githubusercontent.com/111932225/219857955-ad5b88ed-cff9-4f82-9460-6207b97a2c7c.png)
+![health as event source](https://user-images.githubusercontent.com/111932225/219857959-c2594b31-9704-445a-8226-29f2bccf3ad1.png)
+
+Then I selected SNS to invoke when there's an event match, skipped tag page and the click create rule
+
+![SNS as event source](https://user-images.githubusercontent.com/111932225/219858051-a2a4daec-dbf4-4991-8cc5-899d50f8b109.png)
+![SNS to invoke](https://user-images.githubusercontent.com/111932225/219858069-0f5e5ef8-7095-4bf3-87d3-6865a4f29ace.png)
