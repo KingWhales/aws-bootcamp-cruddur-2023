@@ -66,3 +66,15 @@ Documentation: C4 models can be used to document the architecture of a software 
 Evolution: C4 models can be used to support the evolution of a software system over time. By updating the models to reflect changes in the system, teams can ensure that the architecture remains consistent and understandable.
 
 Planning: C4 models can be used to support planning activities, such as estimating the effort required to develop or modify a software system. By understanding the structure of the system, teams can make more accurate estimates and plan more effectively.
+
+# LAUCHING AWS CLOUD SHELL AND LOOKING AT AWS CLI
+
+AWS clouyd shell is easy to launch as the icon is located right top corner of the console, it is the icon highlighted in red below
+![cloud shell](https://user-images.githubusercontent.com/111932225/219874812-98a403ae-9e2e-44ef-b5a3-33c5a2ff9015.png)
+
+Once you click the icon you get a welcome greeting display
+![Welcome to cloudshell](https://user-images.githubusercontent.com/111932225/219875043-4bcb8d67-7b40-40bd-bf16-a4a1b4c37db0.png)
+
+I ran few commands just to make sure it is working
+
+![cloudshell](https://user-images.githubusercontent.com/111932225/219875282-71835aff-80bd-432e-8992-cb939dc1c821.png)
