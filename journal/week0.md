@@ -52,3 +52,17 @@ I navigated to Well Architecture Framework tools and defined a workload and name
 
 ![Define Well Architected Framework](https://user-images.githubusercontent.com/111932225/219873342-dda7db55-c6d8-4819-bab5-4eb08e06ece2.png)
 ![AWS Well-Architecture Frameworl](https://user-images.githubusercontent.com/111932225/219873362-1b14be1d-38aa-440f-970d-8e76f0147e8e.png)
+
+# USES OF C4 MODELS
+
+C4 (Context, Containers, Components, Code) is a visual modeling approach for software architecture that provides a way to represent and communicate the design of a software system. Here are some of the uses of C4 models:
+
+Communication: C4 models can be used as a communication tool to help different stakeholders understand the structure of a software system. By using C4 models, teams can discuss and agree on the high-level design of the system and ensure that everyone is on the same page.
+
+Analysis: C4 models can be used to analyze the structure of a software system and identify potential issues and areas for improvement. For example, the models can be used to identify components that are tightly coupled and may need to be decoupled to improve maintainability.
+
+Documentation: C4 models can be used to document the architecture of a software system. By using the models, teams can create a visual representation of the system that can be used as a reference for future development work.
+
+Evolution: C4 models can be used to support the evolution of a software system over time. By updating the models to reflect changes in the system, teams can ensure that the architecture remains consistent and understandable.
+
+Planning: C4 models can be used to support planning activities, such as estimating the effort required to develop or modify a software system. By understanding the structure of the system, teams can make more accurate estimates and plan more effectively.
