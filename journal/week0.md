@@ -21,6 +21,8 @@ I clicked next to see "Preview and create" page before I clicked on "create alar
 
 # USING LUCID CHART ARCHITECTURE DIAGRAM
 
+https://lucid.app/lucidchart/0de49364-9cfe-48b8-8b4f-985c6ba6f9ca/edit?viewport_loc=-912%2C-622%2C2101%2C812%2C0_0&invitationId=inv_d7371682-292f-436d-a193-b01e6df2c4f2
+
 ![Lucidchart](https://user-images.githubusercontent.com/111932225/219817872-f9382241-1fe6-4480-9d66-80d6f58fbfbf.png)
 
 
