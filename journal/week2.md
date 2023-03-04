@@ -13,7 +13,12 @@ I followed the youtube video and instrument AWS X-RAY into backend flask applica
 ![xray works](https://user-images.githubusercontent.com/111932225/222902341-ddedb91a-150f-4bc5-95e7-40935dabd65f.png)
 
 # CLOUDWATCH
-I installed watchtower by pasting watchtower in requirement.txt in backend flask application and change directory into backend flask to ran "pip install -r requirement.txt" to have the watchtower installed, then I imported watchtower and logging in app.py file and I configured logger to use cloudwatch by passting the logger configuration commands in app.py file, then set environment variables by pasting the commannds in docker-compose.yml file to access cloudwatch and then compose it up then logged into my aws account and nnavigated to cloudwatch to see if it's shwoing on there and it was
+I installed watchtower by pasting watchtower in requirement.txt in backend flask application and change directory into backend flask to ran "pip install -r requirement.txt" to have the watchtower installed, then I imported watchtower and logging in app.py file and I configured logger to use cloudwatch by pasting the logger configuration commands in app.py file, then set environment variables by pasting the commannds in docker-compose.yml file to access cloudwatch and then compose it up then logged into my aws account and nnavigated to cloudwatch to see if it's shwoing on there and it was
 ![cloudwatch logs](https://user-images.githubusercontent.com/111932225/222904381-454fc54d-e1f3-49fd-975d-4e07830977ad.png)
 ![cloudwatch log streams](https://user-images.githubusercontent.com/111932225/222904418-d0fb5fb4-e61d-4dd2-a4a2-ecd0d7f6330a.png)
 ![cloudwatch log event](https://user-images.githubusercontent.com/111932225/222904422-b9def0ca-f2bf-48f8-b6a0-5da04ec3ae2a.png)
+
+
+# ROLLBAR
+First time I'd be hearing about Rollbar, I got to understand Rollbar is use to log, trace and monitor errors. I had to start the installation by pasting "blinker rollbar" in "requirement.txt" under backend-flask folder then change directory into backend-flask in terminal and run "pip install -r requirement.txt" to have Blinker Rollbar installed, then proceed to set my access token, had to create a new text file and export and set my environment for the Roll bar access key, copied the access from my rollbar account and paste it in the new file created then run export ROLLBAR_ACCESS_TOKEN="7df711f21e6c47dd8cb5eb4b821f9d65" gp env ROLLBAR_ACCESS_TOKEN="7df711f21e6c47dd8cb5eb4b821f9d65" in the terminal to set the variable and run env | grep Rollbar to make sure it os set
+![rollbar](https://user-images.githubusercontent.com/111932225/222910232-6d7b1e50-9960-486d-94ce-31ad15e558a3.png)
