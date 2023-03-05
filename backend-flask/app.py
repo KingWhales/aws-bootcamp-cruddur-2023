@@ -26,10 +26,16 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from aws_xray_sdk.core import xray_recorder
 from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 
-# Cloudwatch logs
-#import watchtower
-#import logging
-#from time import strftime
+# Cloudwatch logs..........
+import watchtower
+import logging
+from time import strftime
+
+# Rollbar
+import os
+import rollbar
+import rollbar.contrib.flask
+from flask import got_request_exception
 
 # Configuring Logger to Use CloudWatch
 #LOGGER = logging.getLogger(__name__)
@@ -40,31 +46,33 @@ from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 #LOGGER.addHandler(cw_handler)
 #LOGGER.info("some message")
 
-# Rollbar
-import os
-import rollbar
-import rollbar.contrib.flask
-from flask import got_request_exception
-
-
 # Honeycomb
 # Initialize tracing and an exporter that can send data to Honeycomb
 provider = TracerProvider()
 processor = BatchSpanProcessor(OTLPSpanExporter())
 provider.add_span_processor(processor)
-trace.set_tracer_provider(provider)
-tracer = trace.get_tracer(__name__)
-
-
 
 
 # X-RAY..........
-xray_url = os.getenv("AWS_XRAY_URL")
-xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
+#xray_url = os.getenv("AWS_XRAY_URL")
+#xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 
+# Show this in the log within the backend-flask app (STDOUT)
+simple_processor = BatchSpanProcessor(OTLPSpanExporter())
+provider.add_span_processor(simple_processor)
+
+trace.set_tracer_provider(provider)
+tracer = trace.get_tracer(__name__)
 
 app = Flask(__name__)
-XRayMiddleware(app, xray_recorder)
+
+# X-RAY.......
+#XRayMiddleware(app, xray_recorder)
+
+# Honeycomb
+# Initialize automatic instrumentation with Flask
+FlaskInstrumentor().instrument_app(app)
+RequestsInstrumentor().instrument()
 
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')
@@ -76,35 +84,6 @@ cors = CORS(
   allow_headers="content-type,if-modified-since",
   methods="OPTIONS,GET,HEAD,POST"
 )
-
-
-# Honeycomb
-# Initialize automatic instrumentation with Flask
-#FlaskInstrumentor().instrument_app(app)
-#RequestsInstrumentor().instrument()
-
-
-
-@app.route("/api/message_groups", methods=['GET'])
-def data_message_groups():
-  user_handle  = 'andrewbrown'
-  model = MessageGroups.run(user_handle=user_handle)
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
-
-@app.route("/api/messages/@<string:handle>", methods=['GET'])
-def data_messages(handle):
-  user_sender_handle = 'andrewbrown'
-  user_receiver_handle = request.args.get('user_reciever_handle')
-
-  model = Messages.run(user_sender_handle=user_sender_handle, user_receiver_handle=user_receiver_handle)
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
-  return
 
 #@app.after_request
 #def after_request(response):
@@ -134,6 +113,31 @@ def init_rollbar():
 def rollbar_test():
     rollbar.report_message('Hello World!', 'warning')
     return "Hello World!"
+
+@app.route("/api/message_groups", methods=['GET'])
+def data_message_groups():
+  user_handle  = 'andrewbrown'
+  model = MessageGroups.run(user_handle=user_handle)
+  if model['errors'] is not None:
+    return model['errors'], 422
+  else:
+    return model['data'], 200
+
+@app.route("/api/messages/@<string:handle>", methods=['GET'])
+def data_messages(handle):
+  user_sender_handle = 'andrewbrown'
+  user_receiver_handle = request.args.get('user_reciever_handle')
+
+  model = Messages.run(user_sender_handle=user_sender_handle, user_receiver_handle=user_receiver_handle)
+  if model['errors'] is not None:
+    return model['errors'], 422
+  else:
+    return model['data'], 200
+  return
+
+
+
+
 
 @app.route("/api/messages", methods=['POST','OPTIONS'])
 @cross_origin()
