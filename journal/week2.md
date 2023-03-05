@@ -25,3 +25,7 @@ First time I'd be hearing about Rollbar, I got to understand Rollbar is use to l
 ![rollbar](https://user-images.githubusercontent.com/111932225/222910232-6d7b1e50-9960-486d-94ce-31ad15e558a3.png)
 I ran the Rollbar configuration endpoint to get it working
 ![rollbar endpoint](https://user-images.githubusercontent.com/111932225/222965656-7beacb2e-aca4-442a-baee-48c25a0995aa.png)
+
+I navigated back to Rollbar to see if it has picked up the trace of the endpooint and I also tried to make an error to see if rollbar would pick it and show it and it did
+![rollbar item](https://user-images.githubusercontent.com/111932225/222969480-70e41490-76be-4771-92bd-d7fa795bf5c5.png)
+![rollbar error](https://user-images.githubusercontent.com/111932225/222969493-209e1635-3680-438c-b6dd-8c4b4f7a514d.png)
