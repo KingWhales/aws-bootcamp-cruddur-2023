@@ -12,3 +12,5 @@ I hooked up our cognito pool to  our code in App.js file by running this command
 Went ahead and configure amplify in both App.js and docker-compose.yml file
 ![amplify configuration](https://user-images.githubusercontent.com/111932225/224047327-ca3eae88-bd0e-4e02-9c1d-1cd180ddab0c.png)
 ![amplify config](https://user-images.githubusercontent.com/111932225/224047336-4c181dc8-6cd5-4726-8424-07d56fee843e.png)
+
+I updated HomeFeedPage configuration
