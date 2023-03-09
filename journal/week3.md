@@ -14,3 +14,4 @@ Went ahead and configure amplify in both App.js and docker-compose.yml file
 ![amplify config](https://user-images.githubusercontent.com/111932225/224047336-4c181dc8-6cd5-4726-8424-07d56fee843e.png)
 
 I updated HomeFeedPage configuration
+I updated the ProfileInfo configuration
