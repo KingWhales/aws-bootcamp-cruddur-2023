@@ -17,3 +17,5 @@ I updated HomeFeedPage configuration
 I updated the ProfileInfo configuration
 Before I move on to configuring my signing page configuration, I tried to sign in with wrong details to see if I would get "incorrect password" in which I did
 ![incorrect username and password](https://user-images.githubusercontent.com/111932225/224064542-de7595e7-6881-415d-b0e3-8b1298debdbd.png)
+I created a user in userpool console and run the command below to have my signing authenticated in Cruddur app
+![command](https://user-images.githubusercontent.com/111932225/224318264-9a7987d9-21f6-4133-84d3-1a8035e77636.png)
