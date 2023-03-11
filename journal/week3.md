@@ -22,3 +22,6 @@ I created a user in userpool console and run the command below to have my signin
 
 Signed in to Cruddur with correct details
 ![cruddur signin](https://user-images.githubusercontent.com/111932225/224477841-188c6b6d-8cba-4fa6-91a6-fc6316076933.png)
+Configure the sign up file and clicked on sign up to see if it works and it did work
+![cruddur confirmation](https://user-images.githubusercontent.com/111932225/224494225-ab8fdd52-3fee-4842-b7a8-c23be22750f4.png)
+![signed into cruddur](https://user-images.githubusercontent.com/111932225/224494245-0793a44b-88e1-4f14-8d21-6785c1844133.png)
