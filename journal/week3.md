@@ -25,3 +25,7 @@ Signed in to Cruddur with correct details
 Configure the sign up file and clicked on sign up to see if it works and it did work
 ![cruddur confirmation](https://user-images.githubusercontent.com/111932225/224494225-ab8fdd52-3fee-4842-b7a8-c23be22750f4.png)
 ![signed into cruddur](https://user-images.githubusercontent.com/111932225/224494245-0793a44b-88e1-4f14-8d21-6785c1844133.png)
+
+I configured the recovery page and put it into test to see if it works and it did work
+![password recovery](https://user-images.githubusercontent.com/111932225/224495418-cb8140c2-8588-49c5-81b1-d4002cbf08a7.png)
+![sucessfully recovered](https://user-images.githubusercontent.com/111932225/224495437-f863601e-37b9-4995-8fca-1fd4d9ee1baa.png)
