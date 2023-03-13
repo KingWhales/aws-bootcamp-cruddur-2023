@@ -156,10 +156,6 @@ def data_create_message():
 
 @app.route("/api/activities/home", methods=['GET'])
 def data_home():
-  app.logger.debug("AUTH HEADER")
-  print(
-    request.headers.get('Authorization')
-  )
   data = HomeActivities.run()
   return data, 200
 
