@@ -17,7 +17,7 @@ from services.messages import *
 from services.create_message import *
 from services.show_activity import *
 
-from lib.cognito_jwt_token import CognitoJwtToken
+from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError
 
 
 # Honeycomb ........
@@ -166,14 +166,19 @@ def data_create_message():
   return
 
 @app.route("/api/activities/home", methods=['GET'])
+@xray_recorder.capture('activities_home')
 def data_home():
   app.logger.debug(request_headers)
   access_token = CognitoJwtToken(request.headers)
   try:
-    claims = cognito_jwt_token.token_service.verify(access_token)
+    claims = cognito_jwt_token.verify(access_token)
+    # Authenticated request
+    app.logger.debug('claims')
+    app.logger.debug(claims)  
   except TokenVerifyError as e:
-    _ = request.data
-    abort(make_response(jsonify(message=str(e)), 401))
+    # Unauthentical request
+    app.logger.debug("unauthenticated")
+
 
   app.logger.debug("AUTH HEADER")
   print(
