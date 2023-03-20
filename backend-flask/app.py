@@ -179,11 +179,6 @@ def data_home():
     # Unauthentical request
     app.logger.debug("unauthenticated")
 
-
-  app.logger.debug("AUTH HEADER")
-  print(
-    request.headers.get('Authorization')
-  )
   data = HomeActivities.run()
   return data, 200
 
