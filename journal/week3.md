@@ -29,3 +29,6 @@ Configure the sign up file and clicked on sign up to see if it works and it did 
 I configured the recovery page and put it into test to see if it works and it did work
 ![password recovery](https://user-images.githubusercontent.com/111932225/224495418-cb8140c2-8588-49c5-81b1-d4002cbf08a7.png)
 ![sucessfully recovered](https://user-images.githubusercontent.com/111932225/224495437-f863601e-37b9-4995-8fca-1fd4d9ee1baa.png)
+
+I changed Cruddur theme
+![cruddur theme changed](https://user-images.githubusercontent.com/111932225/227193764-74211307-94cf-4360-8333-3df74559b7c5.png)
