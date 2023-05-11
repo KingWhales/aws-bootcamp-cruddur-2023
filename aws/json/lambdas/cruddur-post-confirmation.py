@@ -35,7 +35,7 @@ def lambda_handler(event, context):
       conn.commit() 
 
     except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+      print(error)
         
     finally:
       if conn is not None:
