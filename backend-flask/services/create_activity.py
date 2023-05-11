@@ -43,7 +43,8 @@ class CreateActivity:
         'message': message
       }   
     else:
-      self.create_activity()
+      expires_at = (now + ttl_offset)
+      CreateActivity.create_activity(user_handle,message,expires_at)
       model['data'] = {
         'uuid': uuid.uuid4(),
         'display_name': 'Andrew Brown',
@@ -62,10 +63,19 @@ class CreateActivity:
       expires_at
     )
     VALUES (
-      "{user_uuid}",
-      "{message}",
-      "{expires_at}"
-    )
+      (SELECT uuid 
+      FROM public.users 
+      WHERE users.handle = %(handle)s 
+      LIMIT 1
+      ),
+      %(mesage)s,
+      %(expires_at)s,
+    ) RETURNING uuid;
     """
-    #query_commit(sql)
+    uuid = db.query_commit_with_returning_id(sql,
+      handle=handle,
+      message=message,
+      expires_at=expires_at
+    )
+  #def query_object_activity():
     
