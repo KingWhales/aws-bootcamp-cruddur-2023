@@ -79,6 +79,7 @@ class Db:
     """
     return sql
 
+
   def print_sql_err(self,err):
     # get details about the exception
     err_type, err_obj, traceback = sys.exc_info()

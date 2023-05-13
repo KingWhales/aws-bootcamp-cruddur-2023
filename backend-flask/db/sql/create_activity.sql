@@ -9,6 +9,6 @@ INSERT INTO public.activities (
       WHERE users.handle = %(handle)s 
       LIMIT 1
       ),
-      %(mesage)s,
+      %(message)s,
       %(expires_at)s
     ) RETURNING uuid;
