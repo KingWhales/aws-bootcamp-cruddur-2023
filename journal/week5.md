@@ -6,3 +6,7 @@
 ![seed implement](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/bf55dfa5-64e7-40bc-a1a8-04b724a016c8)
 ![seed implementation](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/e1c0c121-12b4-4fc4-9914-0e1bc3482973)
 ![seed implementation](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/dd9c7a36-3a89-45c1-88f4-1cfd06b61e95)
+
+# Implement Scan Script
+![scan](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/9be148a0-5329-4f46-91ed-5026afb1b267)
+![scan](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/b939fc99-47b0-419a-b6f8-af3140a47e4f)
