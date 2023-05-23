@@ -10,3 +10,7 @@
 # Implement Scan Script
 ![scan](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/9be148a0-5329-4f46-91ed-5026afb1b267)
 ![scan](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/b939fc99-47b0-419a-b6f8-af3140a47e4f)
+
+# Implement Pattern Scripts for Get and List Conversations 
+![list](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/aff392f8-6987-4e27-94ae-fdc7d68adbb5)
+![get](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/c805db61-2c5b-483f-84f2-4afd9032ba26)
