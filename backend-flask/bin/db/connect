@@ -5,4 +5,4 @@ NO_COLOR='\033[0m'
 LABEL="db-connect"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-psql $PROD_CONNECTION_URL
+psql $CONNECTION_URL
