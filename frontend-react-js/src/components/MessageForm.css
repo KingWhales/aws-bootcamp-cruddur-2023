@@ -18,7 +18,7 @@ form.message_form textarea {
   padding: 16px;
   border: solid 1px rgb(255,0,0);
   background: rgb(255,255,255,1);
-  color: #fff;
+  color: #1f1f1f;
 }
 
 form.message_form textarea:focus {
