@@ -170,13 +170,11 @@ def data_messages(message_group_uuid):
     return {}, 401
 
 
-
-
 @app.route("/api/messages", methods=['POST','OPTIONS'])
 @cross_origin()
 def data_create_message():
-  user_sender_handle = 'andrewbrown'
-  user_receiver_handle = request.json['user_receiver_handle']
+  user_receiver_handle = request.json['handle']
+  message_group_uuid = request.json['message_group_uuid']
   message = request.json['message']
 
   model = CreateMessage.run(message=message,user_sender_handle=user_sender_handle,user_receiver_handle=user_receiver_handle)
