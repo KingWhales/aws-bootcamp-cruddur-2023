@@ -186,4 +186,8 @@ def lambda_handler(event, context):
 ![permission](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/32f7a479-215e-41e2-972f-5af001a1f9ed)
 ![cloudwatch](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/3e7ae162-e6d7-4bd5-bc1c-06d6aeddd10f)
 ![permission](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/b50a8f33-cdb1-4a93-81e4-9112a694f175)
+![zz](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/644e1c45-6877-475e-933a-14956576f7e7)
+![zzz](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/bb61ff70-a4e0-4d6f-94eb-4b4c42f1d04f)
+![data insertation](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/eeadcc31-ec8e-43e2-92ef-3bf51941189c)
+![data query](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/5496071b-3f4a-4f2c-b1f5-95cdf7a44108)
 
