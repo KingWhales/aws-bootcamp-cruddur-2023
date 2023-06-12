@@ -4,7 +4,7 @@
  chmod u+x bin/rds/update-sg-rule
 Then we execute test file to confirm if the connection is successful
 ![test script](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/0cb29ac3-2323-4170-ab5a-6ccad3b864dc)
-Then we need to have health check for our flask app, so we went ahead to paste the code below in backend-flask>app.py file
+Then we need to have health check for our flask app, so we went ahead to paste the code below in backend-flask>app.py file:
 
 @app.route('/api/health-check')
 def health_check():
