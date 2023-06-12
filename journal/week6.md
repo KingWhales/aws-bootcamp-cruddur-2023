@@ -12,6 +12,7 @@ Then we need to have health check for our flask app, so we went ahead to paste t
 
 We need to make a new script for health-check, we created a script file in backend_flask>bin>flask>health-checkand write in the below code
 
+```
 #!/usr/bin/env python3
 
 import urllib.request
@@ -21,5 +22,6 @@ if response.getcode() == 200:
   print("Flask server is running")
 else:
   print("Flask server is not running")
+```
 
 Then we make the health-check script executable
