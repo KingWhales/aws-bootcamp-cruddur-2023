@@ -36,3 +36,54 @@ except Exception as e:
 ```
 
 Then we make the health-check script executable
+
+We created a cloudwatch named "cruddur/fargate-cluster" and set retention time to 1 day
+
+```
+aws logs create-log-group --log-group-name "cruddur/fargate-cluster"
+aws logs put-retention-policy --log-group-name"cruddur/fargate-cluster" --retention-in-days 1
+```
+![cloudwatch created](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/55da6547-c95e-4e38-930e-b91b059908dd)
+
+Then we moved to creating ECS cluster with the be below command:
+
+```
+aws ecs create-cluster \
+--cluster-name cruddur \
+--service-connect-defaults namespace=cruddur
+```
+![ecs cluster created](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/16fa169c-a5ae-4424-9bb5-a054629449ab)
+
+
+Next step is to create ECR repository and we name it "cruddur-python" and set image tag as "MUTABLE"  with the below command:
+```
+aws ecr create-repository \
+  --repository-name cruddur-python \
+  --image-tag-mutability MUTABLE
+```
+![cruddur-python](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/55564eeb-9c76-4353-ad3f-30bfa22361b9)
+![cruddur-python](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/c000a34a-8ead-4a10-941e-b62758588c1a)
+
+then proceed to login to ECR with the push command shown on your on your AWS console UI after you check-box the ECR repository, you copy that and paste in your terminal and you get "login succeeded" response which means you can now push container. We go ahead and set  URL in our terminal by exporting it with this command:
+`export ECR_PYTHON_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/cruddur-python"`
+
+We go ahead and pull docker image in backend environment with the following command:
+docker pull python:3.10-slim-buster
+
+then we tag  our image with the following command:
+`docker tag python:3.10-slim-buster $ECR_PYTHON_URL:3.10-slim-buster`
+ 
+then push the image with the following command:
+`docker push $ECR_PYTHON_URL:3.10-slim-buster`
+
+We need to update our flask app to our repository URL endpoint in our Docker file
+
+Next step is to create another ECR repository and we name it "backend-flask" and set image tag as "MUTABLE"  with the below command:
+```
+aws ecr create-repository \
+  --repository-name backend-flask \
+  --image-tag-mutability MUTABLE
+```
+
+We go ahead and set  URL in our terminal by exporting it with this command:
+`export ECR_PYTHON_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/backend-flask"`
