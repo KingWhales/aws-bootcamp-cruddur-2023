@@ -65,15 +65,18 @@ aws ecr create-repository \
 ![cruddur-python](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/c000a34a-8ead-4a10-941e-b62758588c1a)
 
 then proceed to login to ECR with the push command shown on your on your AWS console UI after you check-box the ECR repository, you copy that and paste in your terminal and you get "login succeeded" response which means you can now push container. We go ahead and set  URL in our terminal by exporting it with this command:
+
 `export ECR_PYTHON_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/cruddur-python"`
 
 We go ahead and pull docker image in backend environment with the following command:
 docker pull python:3.10-slim-buster
 
 then we tag  our image with the following command:
+
 `docker tag python:3.10-slim-buster $ECR_PYTHON_URL:3.10-slim-buster`
  
 then push the image with the following command:
+
 `docker push $ECR_PYTHON_URL:3.10-slim-buster`
 
 We need to update our flask app to our repository URL endpoint in our Docker file
@@ -86,4 +89,5 @@ aws ecr create-repository \
 ```
 
 We go ahead and set  URL in our terminal by exporting it with this command:
+
 `export ECR_PYTHON_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/backend-flask"`
