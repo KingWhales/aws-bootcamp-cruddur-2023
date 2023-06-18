@@ -91,3 +91,118 @@ aws ecr create-repository \
 We go ahead and set  URL in our terminal by exporting it with this command:
 
 `export ECR_PYTHON_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/backend-flask"`
+
+We first need to go to create a paramenter before we create execution role by passing sensitive data to Task Definition with these commands:
+```
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/AWS_ACCESS_KEY_ID" --value $AWS_ACCESS_KEY_ID
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/AWS_SECRET_ACCESS_KEY" --value $AWS_SECRET_ACCESS_KEY
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/CONNECTION_URL" --value $PROD_CONNECTION_URL
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN" --value $ROLLBAR_ACCESS_TOKEN
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS" --value "x-honeycomb-team=$HONEYCOMB_API_KEY"
+```
+
+![parameter](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/9589e52f-3bb0-460d-a763-df90d5ab2a74)
+![parameter console](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/5361e6df-cb65-4c49-8d8c-dfbd630df9d6)
+
+We create Task and Execution role with the below command:
+```
+aws iam create-role \    
+--role-name   \   
+--assume-role-policy-document file://aws/json/policies/service-assume-role-execution-policy.json
+```
+![role](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/4f7c1e90-bbfa-4de2-bdf7-58751f08c517)
+![role](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/252ff036-8852-40fb-b904-678245fa06bb)
+
+We then create a Task role with the bellow code:
+
+```
+aws iam create-role \
+    --role-name CruddurTaskRole \
+    --assume-role-policy-document "{
+  \"Version\":\"2012-10-17\",
+  \"Statement\":[{
+    \"Action\":[\"sts:AssumeRole\"],
+    \"Effect\":\"Allow\",
+    \"Principal\":{
+      \"Service\":[\"ecs-tasks.amazonaws.com\"]
+    }
+  }]
+}"
+```
+
+![task role](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/2be46e58-17e0-475d-bd73-8dda28f29bac)
+![task role](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/bf320f82-b4e7-4b9d-b8bf-b26e1413e230)
+
+Then I created a policy to use System manager with the following command:
+```
+aws iam put-role-policy \
+  --policy-name SSMAccessPolicy \
+  --role-name CruddurTaskRole \
+  --policy-document "{
+  \"Version\":\"2012-10-17\",
+  \"Statement\":[{
+    \"Action\":[
+      \"ssmmessages:CreateControlChannel\",
+      \"ssmmessages:CreateDataChannel\",
+      \"ssmmessages:OpenControlChannel\",
+      \"ssmmessages:OpenDataChannel\"
+    ],
+    \"Effect\":\"Allow\",
+    \"Resource\":\"*\"
+  }]
+}
+"
+```
+
+Then I give the CruddurTaskRole full access to Cloudwatch with the following code:
+```
+aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/CloudWatchFullAccess --role-name CruddurTaskRole
+```
+
+And also grant AWSXRayDaemonWriteAccess to CruddurTaskRole with the  following code:
+```
+aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess --role-name CruddurTaskRole
+```
+![permission policy](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/1af695b1-714f-47d7-966e-42c99046801f)
+
+Created a folder named task-definitions under aws folder and created backend-flask and frontend-react-js file under it and do the necessary configuration on both files
+
+To update the new values I recently added in ECR then I need to run the following code:
+```
+aws ecs register-task-definition --cli-input-json file://aws/task-definitions/backend-flask.json
+```
+![value updated](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/561de2ec-e762-4bf0-b11b-82b25c86da82)
+
+To create a service for cruddur cluster, I need to have a vpc, so I used default vpc by running the code below:
+```
+export DEFAULT_VPC_ID=$(aws ec2 describe-vpcs \
+--filters "Name=isDefault, Values=true" \
+--query "Vpcs[0].VpcId" \
+--output text)
+echo $DEFAULT_VPC_ID
+```
+
+Then proceeded to set up security group named "crud-srv-sg" for the cruddur cluster:
+```
+export CRUD_SERVICE_SG=$(aws ec2 create-security-group \
+  --group-name "crud-srv-sg" \
+  --description "Security group for Cruddur services on ECS" \
+  --vpc-id $DEFAULT_VPC_ID \
+  --query "GroupId" --output text)
+echo $CRUD_SERVICE_SG
+```
+
+And then authorize port 80 for the security group with the following code:
+```
+aws ec2 authorize-security-group-ingress \
+  --group-id $CRUD_SERVICE_SG \
+  --protocol tcp \
+  --port 80 \
+  --cidr 0.0.0.0/0
+```
+
+![vpc sg port](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/6926c99c-5feb-45de-b226-25a5fcf165b3)
+
+After the implementation to use default vpc and creation of security group and authorisation of port 80, I proceeded to cruddur cluster in ECS using  AWS UI to create a service named "backend-flask"
+
+![backend-flask](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/571d58da-2c0f-413f-aa4f-dbc91290e4dc)
