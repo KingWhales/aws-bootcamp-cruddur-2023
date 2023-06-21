@@ -1,4 +1,4 @@
-#! usr/bin/bash
+#! /usr/bin/bash
 if [ -z "$1" ]; then
   echo "No TASK_ID arguments supplied eg ./bin/ecs/connect-to-service c4e823e65cba4526a43eff0a2d72fd7d backend-flask"
   exit 1
