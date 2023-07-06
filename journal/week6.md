@@ -203,6 +203,80 @@ aws ec2 authorize-security-group-ingress \
 
 ![vpc sg port](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/6926c99c-5feb-45de-b226-25a5fcf165b3)
 
-After the implementation to use default vpc and creation of security group and authorisation of port 80, I proceeded to cruddur cluster in ECS using  AWS UI to create a service named "backend-flask"
+After the implementation to use default vpc and creation of security group and authorisation of port 80, I proceeded to create a service named "backend-flask" with this command:
+```
+aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.json
+```
 
 ![backend-flask](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/571d58da-2c0f-413f-aa4f-dbc91290e4dc)
+
+Granted CruddurServiceExecutionRole a cloudwatch full access
+
+Then input the code below to connect to container:
+```
+aws ecs execute-command  \
+--region $AWS_DEFAULT_REGION \
+--cluster cruddur \
+--task c4e823e65cba4526a43eff0a2d72fd7d \
+--container backend-flask \
+--command "/bin/bash" \
+--interactive
+```
+![container connected](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/5b1284c2-5df5-4f0e-8ad3-7dc51cde967a)
+
+I run ./bin/flask/health-check to confirm if the Flask srever is running
+![server is running](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/ae750a7b-3fff-4082-9767-60307a631f02)
+
+Created a bash script to connect to container to make it easy to run the connect, the script is named "connect-to-service" and its under the backend-flask/bin/ecs directory. 
+Next is creating a load balancer to route our traffic to the healthy server, so I copied the loadbalancer command line and paste in aws/json/service-backend-flask.json file:
+```
+"loadBalancers": [
+        {
+            "targetGroupArn": "",
+            "loadBalancerName": "",
+            "containerName": "",
+            "containerPort": 0
+        }
+    ]
+```
+I edited the inbound rule of the security group port range use with load balancer to port 4567 and 3000 to allow traffic passage to backend-flask and frontend-react-js respectfully. Checked my target group status and make sure it stays healthy.
+Decided to turn on Access Logs in load balancer for detailed logs for easy debuuging, S3 bucket has to be created in the process so one was created and it's named  it "cruddur-alb-access-log"
+
+![cruddur-alb-access-log](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/4f18a909-5b60-47a5-9c31-3a3e6efaa8e1)
+
+Changed into frontend-react-js directory and run "npm run build". It's necessary to do that to create a production-ready version of your app that can be deployed to server. Then proceed to build an image also in the frontend-react-js directory with the below command: 
+```
+docker build \
+--build-arg REACT_APP_BACKEND_URL="https://cruddur-alb-579528490.us-east-1.elb.amazonaws.com:4567" \
+--build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_USER_POOLS_ID="us-east-1_5O8LHGtGK" \
+--build-arg REACT_APP_CLIENT_ID="7sa8cle3uctvjmv0r6u61eshm5" \
+-t frontend-react-js \
+-f Dockerfile.prod \
+.
+```
+I created ecr repository for frontend-react-js with the below command:
+```
+aws ecr create-repository \
+  --repository-name frontend-react-js \
+  --image-tag-mutability MUTABLE
+```
+
+I pushed image to the ECR frontend-react-js with the below command:
+```
+docker push $ECR_FRONTEND_REACT_URL:latest
+```
+Then run the below command to creat task definitions:
+```
+aws ecr register-task-definition --cli-input-json file://aws/task-definitions/frontend-react-js.json
+```
+![frontend task](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/b60d8617-b973-43e8-bf94-6986e311e6a0)
+![frontend task](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/7d525c2c-b3d3-4148-a1c4-672ee36f2b3a)
+
+Then proceed to create ecs service with the below command:
+```
+aws ecs create-service --cli-input-json file://aws/json/service-frontend-react-js.json
+```
+![ecs services for frontend](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/c9805348-25ba-4b10-b47c-04decc214be9)
+![ecs services for frontend](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/35f2efe2-3685-4b15-aaea-e31d7308f5e8)
