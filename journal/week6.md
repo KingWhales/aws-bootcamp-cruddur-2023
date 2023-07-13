@@ -280,3 +280,64 @@ aws ecs create-service --cli-input-json file://aws/json/service-frontend-react-j
 ```
 ![ecs services for frontend](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/c9805348-25ba-4b10-b47c-04decc214be9)
 ![ecs services for frontend](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/35f2efe2-3685-4b15-aaea-e31d7308f5e8)
+
+I proceeded to start custom domain, I already have one created with Route53 which  is whalesproject.co.uk, I updated nameservers for my domain and went ahead to request Certificate Manager for the encryption of my domain, I proved the ownership by dns validation by creating a CNAME record in ACM UI
+
+![ACM](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/3de9988b-331e-46be-85ea-aa540a2a6c8e)
+
+Went to load balancer listeners and rules to add listeners thats going to forward from port 80 to port 443 then add another listener that will forward from port 443 to cruddur-frontend-react-js target group then added my Certificate in the "Secure listener settings"
+
+![listeners and rules](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/59050742-4a15-4bdb-9409-35aa573ce355)
+
+Navigated to HTTPS:443 to manage the rules and have the condition set host header to "api.whalesproject.co.uk and forward it to "cruddur-backend-flask-tg" target group
+
+![host header](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/b9675759-5c1c-45e3-a78b-e46b4f43207f)
+
+I navigated to Route53 and then to hosted zone to create a record that points to the load balancer, I did it for  both naked whalesproject.co.uk and api.whalesprroject.co.uk domain
+
+![LB](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/5e78a0f8-fe83-4251-90f7-f3f9fdf388c7)
+![LB2](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/7499732d-7368-44fe-851e-de0be5c91ee9)
+![LB3](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/3ad067da-d97c-4b38-a47d-a38474007dea)
+![ping domain](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/1b2e5798-f37d-4f3a-a9a9-c2845a20a6a8)
+![whalesproject](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/bbd889a3-88a6-4726-b188-e73e2295568a)
+
+I had to set up the URL again with the below command to be able to update my frontend:
+```
+export ECR_FRONTEND_REACT_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/frontend-react-js"
+echo $ECR_FRONTEND_REACT_URL
+```
+
+Since I linked my domain(whalesproject.co.uk) to the frontend, I had to build the frontend image again with the updated commands in the frontend directory:
+```
+docker build \
+--build-arg REACT_APP_BACKEND_URL="https://api.whalesproject.co.uk" \
+--build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_USER_POOLS_ID="${AWS_COGNITO_USER_POOL_ID}" \
+--build-arg REACT_APP_CLIENT_ID="7sa8cle3uctvjmv0r6u61eshm5" \
+-t frontend-react-js \
+-f Dockerfile.prod \
+.
+```
+
+I tagged the image with the below command:
+```
+docker tag frontend-react-js:latest $ECR_FRONTEND_REACT_URL:latest
+```
+
+Then I ran the below command to push the Image:
+```
+docker push $ECR_FRONTEND_REACT_URL:latest
+```
+![pushed](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/ab77f5a3-e5e1-4ab7-823f-d91f7f862dd3)
+
+I navigated to ECS UI to update both the backend and the frontend services by ticking the "force new deployment" box so it pick up the new changes
+
+I edited my security group source to my IP to limit the level of accessto my computer alone since flask debug mode is on and I deleted the inbound rule on both port 3000 and 4567 since the ports are no longer use 
+
+I created a new file named 'Dockerfile.prod' under backend-flask directory and indicate the debugger to be off since it's production. Just to confirm if the  debug mode is off in production, decided to build a docker image in production by running:
+```
+docker build -f Dockerfile.prod -t backend-flask-prod .
+```
+
+I created bash script for both  backend-flask and frontend-react-js to build docker image under backend-flask/bin/docker/build directory
