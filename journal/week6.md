@@ -299,7 +299,7 @@ I navigated to Route53 and then to hosted zone to create a record that points to
 ![LB2](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/7499732d-7368-44fe-851e-de0be5c91ee9)
 ![LB3](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/3ad067da-d97c-4b38-a47d-a38474007dea)
 ![ping domain](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/1b2e5798-f37d-4f3a-a9a9-c2845a20a6a8)
-![whalesproject](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/bbd889a3-88a6-4726-b188-e73e2295568a)
+![whalesproject](https://github.com/KingWhales/aws-bootcamp-cruddur-2023/assets/111932225/a4aba2e6-7f38-488b-b052-c7b9ea9b765e)
 
 I had to set up the URL again with the below command to be able to update my frontend:
 ```
